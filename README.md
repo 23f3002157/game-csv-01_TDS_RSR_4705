@@ -1,71 +1,72 @@
 # Sales Summary Project
 
-This project is a single-page site that fetches sales data from a CSV file, computes the total sales, and displays it on the page. It uses Bootstrap 5 for styling.
+This project presents a modern sales summary HTML page that incorporates a currency selection feature. Users can select their preferred currency to view the total sales amount in that currency, providing an enhanced user experience.
 
 ## Features
 
-- Fetches `data.csv` to obtain sales data.
-- Sums the sales based on the price and units sold.
-- Displays the total sales in a formatted manner.
-- Utilizes Bootstrap 5 for a responsive design.
+- **Currency Select Picker**: Allows users to select from multiple currencies (USD, EUR, GBP).
+- **Modern Design**: Utilizes a clean and attractive design with gradient backgrounds and styled elements.
+- **Responsive Design**: The page is mobile-friendly and adapts to various screen sizes.
+- **Total Sales Calculation**: Automatically calculates total sales based on selected currency.
 
-## Usage
+## Changes Made
 
-1. Ensure you have a `data.csv` file in the same directory as `index.html`. The CSV should have the following format:
+The following changes were made to enhance the functionality and appearance of the HTML code:
+
+1. **Currency Select Picker**: Added a `<select>` element for users to choose their desired currency.
+   ```html
+   <div class="mb-3">
+       <label for="currencySelector" class="form-label">Select Currency:</label>
+       <select class="form-select" id="currencySelector">
+           <option value="USD">USD</option>
+           <option value="EUR">EUR</option>
+           <option value="GBP">GBP</option>
+       </select>
+   </div>
    ```
-   Item,Units Sold,Price
-   Widget A,10,2.50
-   Widget B,5,3.00
-   ...
+
+2. **Modern Styling**: Introduced CSS styling to provide a gradient background and improved container aesthetics.
+   ```css
+   body {
+       background: linear-gradient(to right, #00c6ff, #0072ff);
+       color: #fff;
+   }
+   .container {
+       background: rgba(255, 255, 255, 0.1);
+       border-radius: 10px;
+       padding: 20px;
+       margin-top: 50px;
+       box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+   }
    ```
 
-2. Open `index.html` in a web browser.
+3. **Dynamic Currency Conversion**: Implemented JavaScript logic to convert total sales values based on the selected currency.
+   ```javascript
+   function updateTotalSales(currency) {
+       // Conversion logic here
+   }
+   ```
 
-## Setup
+4. **Event Handling**: Added an event listener to update the displayed sales total when the currency selection changes.
+   ```javascript
+   document.getElementById('currencySelector').addEventListener('change', function() {
+       updateTotalSales(this.value);
+   });
+   ```
 
-You need to have a basic HTML file structure. Here’s the provided HTML code:
+## Installation
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sales Summary</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1>Sales Summary</h1>
-        <div class="alert alert-info" id="total-sales">Total Sales: $0.00</div>
-    </div>
-    
-    <script>
-        fetch('data.csv')
-            .then(response => response.text())
-            .then(data => {
-                const rows = data.split('\n').slice(1);
-                let totalSales = 0;
+To run this project locally, follow these steps:
 
-                rows.forEach(row => {
-                    const columns = row.split(',');
-                    if (columns.length === 3) {
-                        const price = parseFloat(columns[2]);
-                        const units = parseInt(columns[1]);
-                        totalSales += price * units;
-                    }
-                });
+1. Clone the repository.
+   
+   ```bash
+   git clone https://github.com/yourusername/sales-summary.git
+   cd sales-summary
+   ```
 
-                document.getElementById('total-sales').textContent = 'Total Sales: $' + totalSales.toFixed(2);
-            })
-            .catch(error => console.error('Error fetching the CSV file:', error));
-    </script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-```
+2. Open the `index.html` file in your web browser.
 
 ## License
 
-MIT License. See [LICENSE](LICENSE) for more information.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
